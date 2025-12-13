@@ -58,6 +58,41 @@ const products = [
 ];
 
 const productGrid=document.getElementById('product-grid');
+const cartListItem=document.getElementById('cart-items');
+////////////////////////////////
+
+const cart=[];
+////////////////////////////////
+const addProductToCart=(product) => {
+    const productIndexInCart=cart.findIndex((item) => item.id===product.id);
+    //the product has not been added to the cart yet
+    if(productIndexInCart===-1){
+       cart.push({
+        ...product, 
+        quantity: 1
+
+       });
+       return;
+    } 
+    cart[productIndexInCart].quantity ++;
+};
+
+const getCartListItem=(cartItem) => {
+    const cartListItem=document.createElement("li");
+    cartListItem.innerText=`${cartItem.name} x ${cartItem.quantity}`;
+    return cartListItem;
+  };
+
+const renderCart=(cart) => {
+    const cartListItems=cart.map((cartItem) => { 
+      const cartListItem=getCartListItem(cartItem);
+      return cartListItem;
+    });
+
+    cartList.innerHTML=" ";
+    cartList.append(...cartListItems);
+};
+/////////////////////////////////
 
 const getProductImageComponent = (product) => {
     const productImageComponent=document.createElement("img");
@@ -85,6 +120,11 @@ const getAddToCartBtn = (product) => {
     const addToCartBtn=document.createElement("button");
     addToCartBtn.className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
     addToCartBtn.innerText="Add to Cart";
+    addToCartBtn.addEventListener("click", () => {
+        console.log("Adding to cart:", product);
+        addProductToCart(product);
+        renderCart(cart);
+    });
     return addToCartBtn;
 };
 
