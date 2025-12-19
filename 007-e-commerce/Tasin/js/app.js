@@ -58,7 +58,7 @@ const products = [
 ];
 
 const productGrid=document.getElementById('product-grid');
-const cartListItem=document.getElementById('cart-items');
+const cartList=document.getElementById('cart-items');
 ////////////////////////////////
 
 const cart=[];
@@ -120,7 +120,7 @@ const getAddToCartBtn = (product) => {
     const addToCartBtn=document.createElement("button");
     addToCartBtn.className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
     addToCartBtn.innerText="Add to Cart";
-    addToCartBtn.addEventListener("click", () => {
+    addToCartBtn.addEventListener('click', () => {
         console.log("Adding to cart:", product);
         addProductToCart(product);
         renderCart(cart);
