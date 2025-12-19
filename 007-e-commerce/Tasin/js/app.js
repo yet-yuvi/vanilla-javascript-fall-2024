@@ -72,7 +72,6 @@ const getCartItemsFromLocalStorage=() => {
     if(!cartItems){
         return [];
     }
-    console.log(cartItems)
     return cartItems;
 };
 
@@ -92,9 +91,38 @@ const addProductToCart=(product) => {
     cart[productIndexInCart].quantity ++;
 };
 
+const removeCartItem = (cartItemToRemove) => {
+  const productIndexInCart=cart.findIndex((item) => item.id===cartItemToRemove.id);
+  if(productIndexInCart===-1){
+      alert(`${cartItem.name} doesn't exist in the cart!`);
+      return;
+    };
+  if(cart[productIndexInCart].quantity>1){
+      cart[productIndexInCart].quantity --;
+      console.log('-----', cart);
+      renderCart(cart);
+    }
+  if(confirm(`Are you sure to remove it?`)) {
+      cart.splice(productIndexInCart, 1);
+      renderCart(cart);
+  } 
+  };
+
+const getRemoveFromCartBtn=(cartItem) => {
+    const removeFromCartBtn=document.createElement("button");
+    removeFromCartBtn.className="text-red-500 ml-2";
+    removeFromCartBtn.innerText="Remove";
+    removeFromCartBtn.addEventListener('click', () => {
+      removeCartItem(cartItem);
+    });
+    return removeFromCartBtn;
+  };
+
 const getCartListItem=(cartItem) => {
     const cartListItem=document.createElement("li");
     cartListItem.innerText=`${cartItem.name} x ${cartItem.quantity}`;
+    const removeFromCartBtn=getRemoveFromCartBtn(cartItem);
+    cartListItem.appendChild(removeFromCartBtn);
     return cartListItem;
   };
 
