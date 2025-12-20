@@ -84,7 +84,6 @@ const cart= getCartItemsFromLocalStorage();
 
 const addProductToCart=(product) => {
     const productIndexInCart=cart.findIndex((item) => item.id===product.id);
-    //the product has not been added to the cart yet
     if(productIndexInCart===-1){
        cart.push({
         ...product, 
@@ -269,9 +268,6 @@ const renderCategories =  (products) => {
 };
 //////////////////////////////////
 
-const applyFiltersBtn = document.getElementById('apply-filters-btn');
-const clearFiltersBtn = document.getElementById('clear-filters-btn');
-
 if (applyFiltersBtn) {
     applyFiltersBtn.addEventListener('click', () => {
         renderProducts(products);
@@ -280,7 +276,6 @@ if (applyFiltersBtn) {
 
 if (clearFiltersBtn) {
     clearFiltersBtn.addEventListener('click', () => {
-        // clear filters array in-place
         filters.splice(0, filters.length);
         saveFiltersToLocalStorage(filters);
         renderCategories(products);
@@ -288,7 +283,7 @@ if (clearFiltersBtn) {
     });
 }
 
-// initial render
+
 renderProducts(products);
 renderCart(cart);
 renderCategories(products);
