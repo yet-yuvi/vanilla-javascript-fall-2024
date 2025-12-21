@@ -18,4 +18,17 @@ const generateProducts = (products) => {
 
 
 
+const renderProducts = async () => {
+    loadingComponent.innerHTML = 'Loading...';
+    try {
+        const response = await fetch(url);
+        const products = await response.json();
+        generateProducts(products);
+    } catch (error) {
+        alert('Failed to load products');
+    } finally {
+        loadingComponent.innerHTML = '';
+    }
+};
+
 renderProducts();
